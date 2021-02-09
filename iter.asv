@@ -1,0 +1,25 @@
+param=main('Ez',0.,'Nk',201,'mu',0.1);
+kindex=1:param.Nk;
+ux=(2*kindex-param.Nk-1)/(2*param.Nk);
+klist=ux*param.b;
+energylist=epsilon(klist,param);
+param.energylist=energylist;
+
+[energyall,wfall]=energyMF(0.05,param);
+
+figure;
+dlist=[];
+for i=1:100
+d=delta(energyall,wfall,param);
+[energyall,wfall]=energyMF(d,param);
+% plotband;
+dlist=[dlist,d];
+plot(dlist);
+drawnow;
+if length(dlist)>1
+    if abs(dlist(end)-dlist(end-1))<1e-10
+        break
+    end
+end
+end
+

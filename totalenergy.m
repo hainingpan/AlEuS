@@ -1,0 +1,1 @@
+function totalenergy(energyall,wfall,param)

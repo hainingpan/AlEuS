@@ -1,0 +1,4 @@
+figure;
+for lindex=1:4
+    plot(klist,energyall(:,1index));
+end
