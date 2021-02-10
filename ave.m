@@ -18,4 +18,5 @@ for kindex=1:Nk
 %     d=d+param.g*(vec(:,1)'*mat*vec(:,1)+vec(:,2)'*mat*vec(:,2));
 %      d=d+param.g*(conj(vec1(4))*vec1(1)+conj(vec2(4))*vec2(1));
 end
+ave=ave/(2*param.Nk);
 end

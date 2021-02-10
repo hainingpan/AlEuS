@@ -13,8 +13,8 @@ Z=zeros(4,4,Nk);
 
 for kindex=1:Nk
     T(:,:,kindex)=kron(sz,s0)*param.energylist(kindex);
-    D(:,:,kindex)=kron(sy,sy)*ave*param.g/(2*param.Nk);
-    Z(:,:,kindex)=param.Ez*kron(sz,sx);
+    D(:,:,kindex)=kron(sy,sy)*ave*param.g;
+    Z(:,:,kindex)=param.Ez*kron(sz,sz);
 end
 
 H=T+D+Z;

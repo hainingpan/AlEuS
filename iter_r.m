@@ -1,4 +1,6 @@
-param=main('Ez',0.00,'Nk',100,'mu',0.5,'T',0.0,'g',0.3);
+% param=main('Ez',0.00,'Nk',200,'mu',1,'T',0.1,'g',1,'a',3.28e-10*5.076e6);
+param=main('Ez',0.0,'Nk',101,'mu',2,'T',0,'g',3,'a',3.28e-10*5.076e6);
+
 ave0=50*ones(param.Nk,1);
 [energyall,wfall]=energyMF_r(ave0,param);
 
