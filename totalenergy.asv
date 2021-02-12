@@ -22,6 +22,6 @@ for kindex=1:param.Nk
                 +vec(:,3)'*Hbdg*vec(:,3)*fd(kindex,3)...
                 +vec(:,4)'*Hbdg*vec(:,4)*fd(kindex,4));
 end
-aveHbdg=aveHbdg/param.Nk/2;
+
 re=d^2/param.g+K+aveHbdg;
 end
