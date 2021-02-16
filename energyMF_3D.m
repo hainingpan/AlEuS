@@ -48,7 +48,7 @@ for kindex=1:N(3)
     
     %restart with larger k   
     while max(val)<param.ED
-        fprintf('k (%d) is too small, restart with k (%d)',k,k*2);
+        fprintf('k (%d) is too small, restart with k (%d)\n',k,k*2);
         k=k*2;
         [vec,val]=eigs(H_bdg,k,'sm');
         val=real(diag(val));
