@@ -6,7 +6,7 @@ param.klist=uz*param.b(3);
 param.energylist=epsilon_3D(param.klist,param);
 
 
-ave0=0*ones(param.N(1)*param.N(2),1);
+ave0=0.01*ones(param.N(1)*param.N(2),1);
 [energyall,wfall]=energyMF_3D(ave0,param);
 
 figure;

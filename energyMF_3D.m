@@ -43,12 +43,12 @@ for kindex=1:N(3)
 
     [vec,val]=eigs(H_bdg,k+10,'sm');
     val=real(diag(val));
-    fprintf('kindex=%d,min(val)=%f,max(val)=%f',kindex,min(abs(val)),max(abs(val)));
+    fprintf('kindex=%d,min(val)=%f,max(val)=%f\n',kindex,min(abs(val)),max(abs(val)));
 
     
     %restart with larger k   
     while max(val)<param.ED
-        disp('k is too small');
+        fprintf('k (%d) is too small, restart with k (%d)',k,k*2);
         k=k*2;
         [vec,val]=eigs(H_bdg,k,'sm');
         val=real(diag(val));
