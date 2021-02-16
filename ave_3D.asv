@@ -1,0 +1,14 @@
+function ave=ave_3D(energyall,wfall,param)
+% 1/2 1/Nz*sum_kz c_{r,-k,down} c_{r,k,up}
+N=param.N;
+mat=zeros(4);
+mat(4,1)=1;
+mat(3,2)=-1;
+fd=1./(exp((energyall)./param.T)+1);
+debye=(abs(energyall)<=param.ED);
+
+for i=1:size(energyall,1)
+    wf=squeeze(wfall(i,:,:)); % 4N*4N
+    
+    ()*fd(i,:)*debye(i,:)
+end

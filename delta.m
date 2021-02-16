@@ -1,4 +1,5 @@
 function d=delta(energyall,wfall,param)
+%obsolete
 %wfall(k,level,:)
 Nk=size(wfall,1);
 mat=zeros(4);

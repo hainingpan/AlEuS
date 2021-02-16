@@ -1,20 +1,20 @@
-Tlist=linspace(0,0.02,50);
+Tlist=linspace(0,0.15,50);
 deltalist=Tlist*0;
-parfor Tindex=1:length(Tlist)
+for Tindex=1:length(Tlist)
     deltalist(Tindex)=delta_T(Tlist(Tindex));
 end
 figure;
 plot(Tlist,deltalist);
 
 function d=delta_T(T)
-param=main('Ez',0,'Nk',101,'mu',2,'T',T,'g',1);
+param=main('Ez',0,'Nk',401,'mu',0.3,'T',T,'g',1,'ED',0.7);
 kindex=1:param.Nk;
 ux=(2*kindex-param.Nk-1)/(2*param.Nk);
 klist=ux*param.b;
 energylist=epsilon(klist,param);
 param.energylist=energylist;
 
-[energyall,wfall]=energyMF(1,param);
+[energyall,wfall]=energyMF(0.1,param);
 
 % figure;
 dlist=[];

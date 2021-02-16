@@ -7,11 +7,14 @@ addParameter(p,'Ez',0);
 addParameter(p,'g',1);
 addParameter(p,'Nk',41);
 addParameter(p,'T',0);
+addParameter(p,'ED',inf);
+
 
 
 parse(p,varargin{:});
 param=struct('a',p.Results.a,'m',p.Results.m*0.511e6,'mu',p.Results.mu,...
-    'Ez',p.Results.Ez,'g',p.Results.g,'Nk',p.Results.Nk,'T',p.Results.T);
+    'Ez',p.Results.Ez,'g',p.Results.g,'Nk',p.Results.Nk,'T',p.Results.T,...
+    'ED',p.Results.ED);
 param.s0=[1,0;0,1];
 param.sx=[0,1;1,0];
 param.sy=[0,-1i;1i,0];

@@ -1,5 +1,5 @@
 % param=main('Ez',0.5,'Nk',101,'mu',2,'T',0,'g',3,'a',3.28e-10*5.076e6);
-param=main('Ez',0.1,'Nk',801,'mu',0.3,'T',0,'g',1,'a',3.28e-10*5.076e6);
+param=main('Ez',0.0,'Nk',401,'mu',0.3,'T',0,'g',1,'a',3.28e-10*5.076e6,'ED',inf);
 
 kindex=1:param.Nk;
 ux=(2*kindex-param.Nk-1)/(2*param.Nk);
@@ -7,7 +7,7 @@ klist=ux*param.b;
 energylist=epsilon(klist,param);
 param.energylist=energylist;
 
-[energyall,wfall]=energyMF(.0,param);
+[energyall,wfall]=energyMF(.5,param);
 
 figure;
 dlist=[];

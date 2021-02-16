@@ -22,7 +22,7 @@ DD=[zero,zero,zero,Dmat;
 T=kron(kron(sz,s0),B*(-param.t)+(2*param.t-param.mu)*speye(Nk));
 Z=kron(kron(sz,sx),speye(Nk))*param.Ez;
 
-D=DD*param.g/(2);
+D=-DD*param.g;
 
 H=(T+D+Z);
 
