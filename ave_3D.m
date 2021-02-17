@@ -10,8 +10,8 @@ for i=1:size(energyall,1)
     if ~isempty(energyall{i})
         fd=1./(exp(energyall{i}./param.T)+1);
         wf=squeeze(wfall{i}); % 4N*4N
-        wf3=reshape(wf,4,N(1)*N(2),size(wf,2));
-        ave=ave+squeeze(conj(wf3(4,:,:)).*wf3(1,:,:)-conj(wf3(3,:,:)).*wf3(2,:,:))*fd;
+        wf3=reshape(wf,N(1)*N(2),4,size(wf,2));
+        ave=ave+squeeze(conj(wf3(:,4,:)).*wf3(:,1,:)-conj(wf3(:,3,:)).*wf3(:,2,:))*fd;
     end
 end
 ave=ave/(2*N(3));

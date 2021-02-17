@@ -10,6 +10,6 @@ dos=sum(deltaf,1);
 
 dos=dos/size(energyall,1)/(prod(param.a/5.076e-3));  % of eV^-1 nm^-1
 figure;plot(Elist,dos);
-xlabel('E (meV)');
+xlabel('E (eV)');
 ylabel('DOS(eV^{-1}nm^{-3})');
 end
