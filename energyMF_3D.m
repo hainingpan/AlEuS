@@ -12,9 +12,9 @@ energyall=cell(N(3),1);
 wfall=cell(N(3),1);
 
 Bx=spdiags([ones(N(1),1),ones(N(1),1)],[-1,1],N(1),N(1));   %banded mat for Nx
-% Bx(1,end)=1;Bx(end,1)=1;
+Bx(1,end)=1;Bx(end,1)=1;
 By=spdiags([ones(N(2),1),ones(N(2),1)],[-1,1],N(2),N(2));   %banded mat for Ny
-% By(1,end)=1;By(end,1)=1;
+By(1,end)=1;By(end,1)=1;
 
 Dmat=param.g*spdiags(ave,0,N(1)*N(2),N(1)*N(2));
 zero=zeros(N(1)*N(2));
@@ -43,7 +43,7 @@ for kindex=1:N(3)/2
 
     [vec,val]=eigs(H_bdg,k+10,'sm');
     val=real(diag(val));
-    fprintf('kindex=%d,min(val)=%f,max(val)=%f,',kindex,min(abs(val)),max(abs(val)));
+%     fprintf('kindex=%d,min(val)=%f,max(val)=%f,',kindex,min(abs(val)),max(abs(val)));
 
     
     %restart with larger k   
@@ -59,7 +59,7 @@ for kindex=1:N(3)/2
     vec=vec(:,debyeindex);
     [val,I]=sort(val);
     vec=vec(:,I);
-    fprintf("len(val)=%d\n",length(val));
+%     fprintf("len(val)=%d\n",length(val));
     
     energyall{kindex}=val;
     wfall{kindex}=vec;

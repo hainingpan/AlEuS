@@ -7,7 +7,7 @@ addParameter(p,'Ez',0);
 addParameter(p,'g',1);
 addParameter(p,'N',[100,100,100]);
 addParameter(p,'T',0);
-addParameter(p,'ED',50*433*8.617333262e-5) % Debye frequency of Al
+addParameter(p,'ED',433*8.617333262e-5) % Debye frequency of Al
 
 
 
