@@ -68,7 +68,8 @@ function [val,vec,string]=diagonize(kindex,pp)
 
     k=pp.kreq(kindex);
     K=-kron(pp.Bx,speye(pp.param.N(2)))*pp.param.t(1)-kron(speye(pp.param.N(1)),pp.By)*pp.param.t(2)...
-        +(2*pp.param.t(1)+2*pp.param.t(2)+pp.param.energylist(kindex)-pp.param.mu)*speye(pp.param.N(1)*pp.param.N(2));
+        +(2*pp.param.t(1)+2*pp.param.t(2)+pp.param.energylist(kindex)-pp.param.mu)*speye(pp.param.N(1)*pp.param.N(2))...
+        +spdiags(param.muVar,0,N(1)*N(2),N(1)*N(2));
     
     K_bdg=[K,pp.zero,pp.zero,pp.zero;
            pp.zero,K,pp.zero,pp.zero;

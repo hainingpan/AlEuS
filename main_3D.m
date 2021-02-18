@@ -8,20 +8,20 @@ addParameter(p,'g',1);
 addParameter(p,'N',[100,100,100]);
 addParameter(p,'T',0);
 addParameter(p,'ED',433*8.617333262e-5) % Debye frequency of Al
-
+addParameter(p,'var',0.); %variance of disorder is 0.2eV
 
 
 parse(p,varargin{:});
 param=struct('a',p.Results.a,'m',p.Results.m*0.511e6,'mu',p.Results.mu,...
     'Ez',p.Results.Ez,'g',p.Results.g,'N',p.Results.N,'T',p.Results.T,...
-    'ED',p.Results.ED);
+    'ED',p.Results.ED,'var',p.Results.var);
 param.s0=[1,0;0,1];
 param.sx=[0,1;1,0];
 param.sy=[0,-1i;1i,0];
 param.sz=[1,0;0,-1];
 param.b=2*pi./param.a; 
 param.t=1./(2*param.m*param.a.^2);
-
+param.muVar=param.var*randn(param.N(1)*param.N(2),1);
 
 
 

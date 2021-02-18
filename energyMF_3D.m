@@ -34,7 +34,8 @@ wfallknz=cell(length(knzlist),1);
 for knzindex=1:length(knzlist)
     kindex=knzlist(knzindex);
     k=kreq(knzlist(knzindex));
-    K=-kron(Bx,speye(N(2)))*t(1)-kron(speye(N(1)),By)*t(2)+(2*t(1)+2*t(2)+param.energylist(kindex)-mu)*speye(N(1)*N(2));
+    K=-kron(Bx,speye(N(2)))*t(1)-kron(speye(N(1)),By)*t(2)+(2*t(1)+2*t(2)+param.energylist(kindex)-mu)*speye(N(1)*N(2))...
+        +spdiags(param.muVar,0,N(1)*N(2),N(1)*N(2));
     
     K_bdg=[K,zero,zero,zero;
            zero,K,zero,zero;
