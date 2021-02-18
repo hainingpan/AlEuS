@@ -19,9 +19,9 @@ energyall=cell(N(3),1);
 wfall=cell(N(3),1);
 
 Bx=spdiags([ones(N(1),1),ones(N(1),1)],[-1,1],N(1),N(1));   %banded mat for Nx
-Bx(1,end)=1;Bx(end,1)=1;
+% Bx(1,end)=1;Bx(end,1)=1;
 By=spdiags([ones(N(2),1),ones(N(2),1)],[-1,1],N(2),N(2));   %banded mat for Ny
-By(1,end)=1;By(end,1)=1;
+% By(1,end)=1;By(end,1)=1;
 
 pp.Bx=Bx;
 pp.By=By;
@@ -69,7 +69,7 @@ function [val,vec,string]=diagonize(kindex,pp)
     k=pp.kreq(kindex);
     K=-kron(pp.Bx,speye(pp.param.N(2)))*pp.param.t(1)-kron(speye(pp.param.N(1)),pp.By)*pp.param.t(2)...
         +(2*pp.param.t(1)+2*pp.param.t(2)+pp.param.energylist(kindex)-pp.param.mu)*speye(pp.param.N(1)*pp.param.N(2))...
-        +spdiags(param.muVar,0,N(1)*N(2),N(1)*N(2));
+        +spdiags(pp.param.muVar,0,pp.param.N(1)*pp.param.N(2),pp.param.N(1)*pp.param.N(2));
     
     K_bdg=[K,pp.zero,pp.zero,pp.zero;
            pp.zero,K,pp.zero,pp.zero;
@@ -97,7 +97,7 @@ function [val,vec,string]=diagonize(kindex,pp)
     vec=vec(:,debyeindex);
     [val,I]=sort(val);
     vec=vec(:,I);
-    s2=fprintf("len(val)=%d\n",length(val));
+    s2=sprintf("len(val)=%d\n",length(val));
     string=strcat(s1,s2);
     
 end
