@@ -1,10 +1,11 @@
-function [energyall,wfall]=energyMF_3D(ave,param)
+function [energyall,wfall]=energyMF_3D_async(ave,param)
 %wfall(kz,NxNy,:)
 tic;
 sz=param.sz;
 sy=param.sy;
 sx=param.sx;
 s0=param.s0;
+pp.sx=sy;
 N=param.N;
 t=param.t;
 mu=param.mu;
@@ -29,12 +30,30 @@ kreq=arrayfun(@(x) estimate_k(x,param),param.klist(1:end/2));
 
 knzlist=find(kreq);
 
-energyallknz=cell(length(knzlist),1);
-wfallknz=cell(length(knzlist),1);
-for knzindex=1:length(knzlist)
-    kindex=knzlist(knzindex);
-    k=kreq(knzlist(knzindex));
-    K=-kron(Bx,speye(N(2)))*t(1)-kron(speye(N(1)),By)*t(2)+(2*t(1)+2*t(2)+param.energylist(kindex)-mu)*speye(N(1)*N(2));
+% energyallknz=cell(length(knzlist),1);
+% wfallknz=cell(length(knzlist),1);
+
+
+f(1:length(knzlist)) = parallel.FevalFuture;
+for idx = 1:length(knzlist)
+    f(idx) = parfeval(@diagonize,2,knzlist(idx));
+end
+
+for idx = 1:length(knzlist)
+    [completedIdx,val,vec] = fetchNext(f);
+    energyall{knzlist(completedIdx)} = val;
+    wfall{knzlist(completedIdx)} = vec;
+    energyall{end-knzlist(completedIdx)}=val;
+    wfall{end-knzlist(completedIdx)}=val;
+end
+
+toc;
+end
+
+function [val,vec]=diagonize(kindex,pp)
+
+    k=pp.kreq(kindex);
+    K=-kron(pp.Bx,speye(N(2)))*t(1)-kron(speye(pp.param.N(1)),pp.By)*t(2)+(2*t(1)+2*t(2)+pp.param.energylist(kindex)-pp.param.mu)*speye(pp.param.N(1)*pp.param.N(2));
     
     K_bdg=[K,zero,zero,zero;
            zero,K,zero,zero;
@@ -65,21 +84,8 @@ for knzindex=1:length(knzlist)
     vec=vec(:,I);
     fprintf("len(val)=%d\n",length(val));
     
-    energyallknz{knzindex}=val;
-    wfallknz{knzindex}=vec;
-
-end
-
-for knzindex=1:length(knzlist)
     
-    energyall{knzlist(knzindex)}=energyallknz{knzindex};
-    wfall{knzlist(knzindex)}=wfallknz{knzindex};
-    energyall{end-knzlist(knzindex)}=energyall{knzlist(knzindex)};
-    wfall{end-knzlist(knzindex)}=wfall{knzlist(knzindex)};
 end
-toc;
-end
-
 
 
 

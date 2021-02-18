@@ -1,4 +1,4 @@
-param=main_3D('g',10,'N',[25,25,50]);
+param=main_3D('g',10,'N',[70,70,70],'ED',50*433*8.617333262e-5);
 
 kindex=1:param.N(3);
 uz=(2*kindex-param.N(3)-1)/(2*param.N(3));
@@ -6,14 +6,13 @@ param.klist=uz*param.b(3);
 param.energylist=epsilon_3D(param.klist,param);
 
 
-ave0=0.01/4*ones(param.N(1)*param.N(2),1);
-[energyall,wfall]=energyMF_3D(ave0,param);
+ave0=0.0016*ones(param.N(1)*param.N(2),1);
+[energyall,wfall]=energyMF_3D_async(ave0,param);
 
 figure;
 dlist=[];
 for i=1:1000
     ave1=ave_3D(energyall,wfall,param);
-    [energyall,wfall]=energyMF_3D(ave1,param);
     d=reshape(ave1*param.g,param.N(1),param.N(2));
     
     dlist(:,:,i)=d;
@@ -30,6 +29,7 @@ for i=1:1000
             break
         end
     end
+    [energyall,wfall]=energyMF_3D_async(ave1,param);
 end
     
     
