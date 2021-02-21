@@ -1,4 +1,4 @@
-xlist=linspace(0,0.15,60);
+xlist=linspace(0.2,0.23,60);
 deltalist_s=xlist*0;
 deltalist_n=xlist*0;
 htotlist_s=xlist*0;
@@ -17,7 +17,7 @@ figure;
 hold on;
 % plot(xlist,htotlist_s,'DisplayName','H_s');
 % plot(xlist,htotlist_n,'DisplayName','H_n');
-plot(xlist,htotlist_s-htotlist_n,'DisplayName','H_s-H_n');
+plot(xlist,htotlist_s-htotlist_n,'o-','DisplayName','H_s-H_n');
 title(strcat('\Delta=',num2str(deltalist_s(1))))
 % % legend;
 

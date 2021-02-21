@@ -1,4 +1,4 @@
-function [energyall,wfall]=energyMF_3D(ave,param)
+function [energyall,wfall]=energyMF_3D(ave,wfall,param)
 %wfall(kz,NxNy,:)
 tic;
 sz=param.sz;
@@ -9,12 +9,14 @@ N=param.N;
 t=param.t;
 mu=param.mu;
 energyall=cell(N(3),1);
-wfall=cell(N(3),1);
+% wfall=cell(N(3),1);
 
 Bx=spdiags([ones(N(1),1),ones(N(1),1)],[-1,1],N(1),N(1));   %banded mat for Nx
-Bx(1,end)=1;Bx(end,1)=1;
 By=spdiags([ones(N(2),1),ones(N(2),1)],[-1,1],N(2),N(2));   %banded mat for Ny
-By(1,end)=1;By(end,1)=1;
+if param.pbc==1
+    Bx(1,end)=1;Bx(end,1)=1;
+    By(1,end)=1;By(end,1)=1;
+end
 
 Dmat=param.g*spdiags(ave,0,N(1)*N(2),N(1)*N(2));
 zero=zeros(N(1)*N(2));
@@ -31,7 +33,7 @@ knzlist=find(kreq);
 
 energyallknz=cell(length(knzlist),1);
 wfallknz=cell(length(knzlist),1);
-for knzindex=1:length(knzlist)
+parfor knzindex=1:length(knzlist)
     kindex=knzlist(knzindex);
     k=kreq(knzlist(knzindex));
     K=-kron(Bx,speye(N(2)))*t(1)-kron(speye(N(1)),By)*t(2)+(2*t(1)+2*t(2)+param.energylist(kindex)-mu)*speye(N(1)*N(2))...
@@ -45,8 +47,13 @@ for knzindex=1:length(knzlist)
     H_bdg=K_bdg+D_bdg+Z_bdg;
     
    
-
-    [vec,val]=eigs(H_bdg,k+10,'sm');
+    H_bdg=real((H_bdg+H_bdg')/2);
+    if isempty(wfall{kindex})
+        [vec,val]=eigs(H_bdg,k+10,'sm');
+    else
+        [vec,val]=eigs(H_bdg,k+10,'sm','StartVector',wfall{kindex}(:,1));
+    end
+        
     val=real(diag(val));
     fprintf('kindex=%d,min(val)=%f,max(val)=%f,',kindex,min(abs(val)),max(abs(val)));
 

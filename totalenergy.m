@@ -6,9 +6,10 @@ s0=param.s0;
 
 d=delta(energyall,wfall,param);
 
-fd_K=1./(exp((param.energylist)./param.T)+1);
+% fd_K=1./(exp((param.energylist)./param.T)+1);
+% K=1/param.Nk*fd_K*param.energylist';
+K=1/param.Nk*sum(param.energylist');
 
-K=1/param.Nk*fd_K*param.energylist';
 
 fd=1./(exp((energyall)./param.T)+1);
 aveHbdg=0;
