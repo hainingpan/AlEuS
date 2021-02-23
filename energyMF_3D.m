@@ -48,7 +48,7 @@ for knzindex=1:length(knzlist)
     
    
     H_bdg=real((H_bdg+H_bdg')/2);
-    k=max(k+10,2*ceil(1.05*k/2));
+    k=max(20,2*ceil(1.05*k/2));
     if isempty(wfall{kindex})
         [vec,val]=eigs(H_bdg,k,'sm');
     else
