@@ -110,7 +110,7 @@ def energyMF(param):
         else:
             val,vec=sla.eigsh(H_bdg,k=k_req,sigma=0)
         
-        print('kindex={},min(val)={:.3f},max(val)={:.3f},'.format(kindex,np.min(np.abs(val)),np.max(np.abs(val))))
+        print('kindex={},min(val)={:e},max(val)={:e},'.format(kindex,np.min(np.abs(val)),np.max(np.abs(val))))
 
         # restart with 2*k_req
         while np.max(val)<param.E_D:
@@ -134,7 +134,7 @@ def energyMF(param):
         param.energyall[param.N[2]-kindex-1]=val
         param.wfall[kindex]=vec
         param.wfall[param.N[2]-kindex-1]=vec
-    print('Elapsed time is: {:.4f}s'.format(time.time()-start_time))
+    print('Elapsed time is: {:.1f}s'.format(time.time()-start_time))
 
 def ave(param):
     '''
@@ -159,7 +159,7 @@ def iter(initial,param):
     energyMF(param)    
     for i in range(1000):
         ave(param)
-        print('-'*10+'Iteration: {}, Average Delta: {:.4f} eV'.format(i,param.Delta.mean())+'-'*10)
+        print('-'*10+'Iteration: {}, Average Delta: {:e} eV'.format(i,param.Delta.mean())+'-'*10)
         Deltalist+=[param.Delta]
         if np.abs(Deltalist[i].mean()-Deltalist[i-1].mean())<1e-8:
             break
@@ -186,7 +186,7 @@ def sparse_diag(matrix, k, sigma, **kwargs):
 
 if __name__=="__main__":
 
-    p=Params(L=[25e-10,25e-10,50e-10],E_D=50*433)
+    p=Params(L=[25e-10,25e-10,50e-10],E_D=50*433,periodic_boundary_condition=0)
     p.energy_kz()
     p.estimate_k()
     iter(2e-2,p)
