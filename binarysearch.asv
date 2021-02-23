@@ -65,5 +65,5 @@ ave0=0*ones(param.N(1)*param.N(2),1);
 ave1=ave_3D(energyall,wfall,param);
 
 htot=totalenergy_3D(energyall,wfall,ave1,param);
-re=mean(ave1,'all')*param.g;
+re=mean(ave1*param.g;
 end

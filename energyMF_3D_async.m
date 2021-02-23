@@ -19,9 +19,9 @@ energyall=cell(N(3),1);
 wfall=cell(N(3),1);
 
 Bx=spdiags([ones(N(1),1),ones(N(1),1)],[-1,1],N(1),N(1));   %banded mat for Nx
-% Bx(1,end)=1;Bx(end,1)=1;
+Bx(1,end)=1;Bx(end,1)=1;
 By=spdiags([ones(N(2),1),ones(N(2),1)],[-1,1],N(2),N(2));   %banded mat for Ny
-% By(1,end)=1;By(end,1)=1;
+By(1,end)=1;By(end,1)=1;
 
 pp.Bx=Bx;
 pp.By=By;
