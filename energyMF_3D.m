@@ -83,8 +83,8 @@ for knzindex=1:length(knzlist)
     
     energyall{knzlist(knzindex)}=energyallknz{knzindex};
     wfall{knzlist(knzindex)}=wfallknz{knzindex};
-    energyall{end-knzlist(knzindex)}=energyall{knzlist(knzindex)};
-    wfall{end-knzlist(knzindex)}=wfall{knzlist(knzindex)};
+    energyall{end-knzlist(knzindex)+1}=energyall{knzlist(knzindex)};
+    wfall{end-knzlist(knzindex)+1}=wfall{knzlist(knzindex)};
 end
 toc;
 end

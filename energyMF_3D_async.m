@@ -54,9 +54,9 @@ end
 for idx = 1:length(knzlist)
     [completedIdx,val,vec,string] = fetchNext(f);
     energyall{knzlist(completedIdx)} = val;
-    wfall{knzlist(completedIdx)} = vec;
+    wfall{knzlist(completedIdx)+1} = vec;
     energyall{end-knzlist(completedIdx)}=val;
-    wfall{end-knzlist(completedIdx)}=vec;
+    wfall{end-knzlist(completedIdx)+1}=vec;
     fprintf(string);
 %     fprintf('Got result with index: %d.\n', completedIdx);
 end
