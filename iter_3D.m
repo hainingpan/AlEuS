@@ -18,12 +18,15 @@ for i=1:1000
     ave1=ave_3D(energyall,wfall,param);
     d=reshape(ave1*param.g,param.N(1),param.N(2));
     dlist(:,:,i)=d;
-%     htot=totalenergy_3D(energyall,wfall,ave1,param);
-%     htotlist=[htotlist,htot];
-    subplot(3,1,1);
+    htot=totalenergy_3D(energyall,wfall,ave1,param);
+    htotlist=[htotlist,htot];
+    subplot(3,2,1);
     plot(squeeze(mean(dlist,[1,2])));
-%     plot(htotlist);
-    subplot(3,1,[2,3]);
+    ylabel('mean Delta')
+    subplot(3,2,2);
+    plot(htotlist);
+    ylabel('total energy')
+    subplot(3,2,[3,4,5,6]);
     imagesc(d);
     daspect([1,1,1]);
     title(strcat('mean Delta=',num2str(mean(d,'all'))));
