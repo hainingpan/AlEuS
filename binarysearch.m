@@ -28,7 +28,7 @@ lower=0e-3;
 % figure;
 middlelist=[];
 wfall=cell(param.N(3),1);
-while upper-lower>1e-6
+while upper-lower>1e-8
     middle=(upper+lower)/2;
     ave0=middle*ones(param.N(1)*param.N(2),1);    
     [energyall,wfall]=energyMF_3D(ave0,wfall,param);

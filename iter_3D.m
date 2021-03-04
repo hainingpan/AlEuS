@@ -1,8 +1,8 @@
-param=main_3D('g',10,'N',[25,25,50],'ED',50*433*8.617333262e-5,'pbc',1,'Ez',0);
+param=main_3D('g',10,'N',[60,100,50],'ED',50*433*8.617333262e-5,'pbc',0,'Ez',0);
 
 kindex=1:param.N(3);
 uz=(2*kindex-param.N(3)-1)/(2*param.N(3));
-param.klist=uz*param.b(3);
+param.klist=uz*param.b(3); 
 param.energylist=epsilon_3D(param.klist,param);
 
 
