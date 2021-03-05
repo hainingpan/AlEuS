@@ -1,4 +1,4 @@
-function [energyall,wfall]=energyMF_3D_async(ave,wfall,param)
+function [energyall,wfall]=energyMF_3D_async(ave,param)
 %wfall(kz,NxNy,:)
 tic;
 sz=param.sz;
@@ -50,7 +50,7 @@ knzlist=find(kreq);
 
 f(1:length(knzlist)) = parallel.FevalFuture;
 for idx = 1:length(knzlist)
-    f(idx) = parfeval(@(x)diagonize(x,wfall,pp),3,knzlist(idx));
+    f(idx) = parfeval(@(x)diagonize(x,pp),3,knzlist(idx));
 end
 
 for idx = 1:length(knzlist)
@@ -66,7 +66,7 @@ end
 toc;
 end
 
-function [val,vec,string]=diagonize(kindex,wfall,pp)
+function [val,vec,string]=diagonize(kindex,pp)
 
     k=pp.kreq(kindex);
     K=-kron(pp.Bx,speye(pp.param.N(2)))*pp.param.t(1)-kron(speye(pp.param.N(1)),pp.By)*pp.param.t(2)...
@@ -80,13 +80,8 @@ function [val,vec,string]=diagonize(kindex,wfall,pp)
    
     H_bdg=K_bdg+pp.D_bdg+pp.Z_bdg;
    
-    H_bdg=real((H_bdg+H_bdg')/2);
-    k=max(20,2*ceil(1.05*k/2));
-    if isempty(wfall{kindex})
-        [vec,val]=eigs(H_bdg,k,'sm');
-    else
-        [vec,val]=eigs(H_bdg,k,'sm','StartVector',wfall{kindex}(:,1));
-    end
+
+    [vec,val]=eigs(H_bdg,k+10,'sm');
     val=real(diag(val));
     s1=sprintf('kindex=%d,min(val)=%f,max(val)=%f,',kindex,min(abs(val)),max(abs(val)));
 
