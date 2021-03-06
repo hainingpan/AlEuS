@@ -30,6 +30,7 @@ Z_bdg=kron(kron(sz,sz),speye(N(1)*N(2)))*param.Ez;
 kreq=arrayfun(@(x) estimate_k(x,param),param.klist(1:end/2));
 
 knzlist=find(kreq);
+% knzlist=1:length(kreq);
 
 energyallknz=cell(length(knzlist),1);
 wfallknz=cell(length(knzlist),1);

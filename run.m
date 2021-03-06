@@ -39,6 +39,6 @@ for i=1:1000
         end
     end
 end
-save(sprintf('Nk(%d,%d,%d)g%dED%d_parallel%d.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),parallel,'dlist','htotlist','param');
+save(sprintf('Nk(%d,%d,%d)g%dED%d_parallel%d.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),'parallel','dlist','htotlist','param');
 end
     
