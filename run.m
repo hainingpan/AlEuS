@@ -1,5 +1,5 @@
 function run(Nkz,parallel)
-param=main_3D('g',10,'N',[50,50,Nkz],'ED',50*433*8.617333262e-5,'pbc',0,'Ez',0.0);
+param=main_3D('g',10,'N',[60,100,Nkz],'ED',50*433*8.617333262e-5,'pbc',0,'Ez',0.0);
 
 kindex=1:param.N(3);
 uz=(2*kindex-param.N(3)-1)/(2*param.N(3));
@@ -39,6 +39,6 @@ for i=1:1000
         end
     end
 end
-save(sprintf('Nk(%d,%d,%d)g%dED%d_parallel%d.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),'parallel','dlist','htotlist','param');
+save(sprintf('Nk(%d,%d,%d)g%dED%d_parallel%d.mat',param.N,param.g,param.ED/(433*8.617333262e-5),parallel),'dlist','htotlist','param');
 end
     
