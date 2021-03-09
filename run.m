@@ -32,7 +32,7 @@ for i=1:1000
         end
     end
     
-    save(sprintf('Nk(%d,%d,%d)g%dED%d_parallel%d.mat',param.N,param.g,param.ED/(433*8.617333262e-5),parallel),'dlist','htotlist','param');
+    save(sprintf('Nk(%d,%d,%d)g%dED%d.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),'dlist','htotlist','param');
 %     if parallel==0
         [energyall,wfall]=energyMF_3D(ave1,wfall,param);
 %     else if parallel==1
