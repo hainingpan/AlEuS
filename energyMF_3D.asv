@@ -58,15 +58,12 @@ for knzindex=1:length(knzlist)
         
     val=real(diag(val));
     if param.verbose==1
-        fprintf('kindex=%d,min(val)=%f,max(val)=%f,',kindex,min(abs(val)),max(abs(val)));
-    end
+    fprintf('kindex=%d,min(val)=%f,max(val)=%f,',kindex,min(abs(val)),max(abs(val)));
 
     
     %restart with larger k   
     while max(val)<param.ED
-        if param.verbose==1
-            fprintf('k (%d) is too small, restart with k (%d)\n',k,k*2);
-        end
+        fprintf('k (%d) is too small, restart with k (%d)\n',k,k*2);
         k=k*2;
         [vec,val]=eigs(H_bdg,k,'sm');
         val=real(diag(val));
@@ -77,9 +74,7 @@ for knzindex=1:length(knzlist)
     vec=vec(:,debyeindex);
     [val,I]=sort(val);
     vec=vec(:,I);
-    if param.verbose==1
-        fprintf("len(val)=%d\n",length(val));
-    end
+    fprintf("len(val)=%d\n",length(val));
     
     energyallknz{knzindex}=val;
     wfallknz{knzindex}=vec;
