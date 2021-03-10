@@ -8,14 +8,7 @@ param.energylist=epsilon_3D(param.klist,param);
 
 ave0=2e-3*ones(param.N(1)*param.N(2),1);
 
-% if parallel==0
 [energyall,wfall]=energyMF_3D(ave0,cell(param.N(3),1),param);
-% else if parallel==1
-%     [energyall,wfall]=energyMF_3D_sync(ave0,cell(param.N(3),1),param);
-%     elseif parallel==2
-%         [energyall,wfall]=energyMF_3D_async(ave0,cell(param.N(3),1),param);
-%     end
-% end
 
 dlist=[];
 htotlist=[];
@@ -25,7 +18,7 @@ for i=1:1000
     dlist(:,:,i)=d;
     htot=totalenergy_3D(energyall,wfall,ave1,param);
     htotlist=[htotlist,htot];   
-    fprintf('Average Gap: %e (meV), Total energy: %e (meV)',mean(d),mean(htot));
+    fprintf('Average Gap: %e (meV), Total energy: %e (meV)\n',mean(d),mean(htot));
     if size(dlist,3)>1
         if abs(mean(dlist(:,:,end),'all')-mean(dlist(:,:,end-1),'all'))<1e-8
             break
@@ -33,16 +26,7 @@ for i=1:1000
     end
     
     save(sprintf('Nk(%d,%d,%d)g%dED%d.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),'dlist','htotlist','param');
-%     if parallel==0
-        [energyall,wfall]=energyMF_3D(ave1,wfall,param);
-%     else if parallel==1
-%         [energyall,wfall]=energyMF_3D_sync(ave1,wfall,param);
-%         else 
-%             [energyall,wfall]=energyMF_3D_async(ave1,wfall,param);
-%         end
-%     end
-
+    [energyall,wfall]=energyMF_3D(ave1,wfall,param);
 end
-% save(sprintf('Nk(%d,%d,%d)g%dED%d_parallel%d.mat',param.N,param.g,param.ED/(433*8.617333262e-5),parallel),'dlist','htotlist','param');
 end
     
