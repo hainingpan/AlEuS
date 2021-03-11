@@ -18,7 +18,7 @@ plot(Tlist,gaplist_SC-gaplist_N);
 save(sprintf("Zeeman.mat"),'Tlist','gaplist_SC','gaplist_N','htotlist_N','htotlist_SC');
 
 function [re,htot]=sc(Ez)
-param=main_3D('g',10,'N',[25,25,50],'ED',50*433*8.617333262e-5,'Ez',Ez,'pbc',0,'verbose',0);
+param=main_3D('g',10,'N',[50,50,50],'ED',50*433*8.617333262e-5,'Ez',Ez,'pbc',0,'verbose',0);
 
 kindex=1:param.N(3);
 uz=(2*kindex-param.N(3)-1)/(2*param.N(3));
