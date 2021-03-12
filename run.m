@@ -1,5 +1,5 @@
-function run(Nkz)
-param=main_3D('g',10,'N',[60,100,Nkz],'ED',50*433*8.617333262e-5,'pbc',0,'Ez',0.0,'verbose',0);
+function run(Nkz,g)
+param=main_3D('g',g,'N',[60,100,Nkz],'ED',50*433*8.617333262e-5,'pbc',0,'Ez',0.0,'verbose',0);
 
 kindex=1:param.N(3);
 uz=(2*kindex-param.N(3)-1)/(2*param.N(3));
