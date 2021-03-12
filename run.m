@@ -6,7 +6,7 @@ uz=(2*kindex-param.N(3)-1)/(2*param.N(3));
 param.klist=uz*param.b(3);
 param.energylist=epsilon_3D(param.klist,param);
 
-ave0=2e-3*ones(param.N(1)*param.N(2),1);
+ave0=3.5e-5*ones(param.N(1)*param.N(2),1);
 
 [energyall,wfall]=energyMF_3D(ave0,cell(param.N(3),1),param);
 
@@ -18,14 +18,14 @@ for i=1:1000
     dlist(:,:,i)=d;
     htot=totalenergy_3D(energyall,wfall,ave1,param);
     htotlist=[htotlist,htot];   
-    fprintf('Average Gap: %e (meV), Total energy: %e (meV)\n',mean(d),mean(htot));
+    fprintf('Average Gap: %e (meV), Total energy: %e (meV)\n',mean(d,'all'),(htot));
     if size(dlist,3)>1
         if abs(mean(dlist(:,:,end),'all')-mean(dlist(:,:,end-1),'all'))<1e-8
             break
         end
     end
     
-    save(sprintf('Nk(%d,%d,%d)g%dED%d.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),'dlist','htotlist','param');
+    save(sprintf('Nk(%d,%d,%d)g%fED%f.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),'dlist','htotlist','param');
     [energyall,wfall]=energyMF_3D(ave1,wfall,param);
 end
 end
