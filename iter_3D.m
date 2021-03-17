@@ -1,4 +1,4 @@
-param=main_3D('g',10,'N',[60,100,50],'ED',50*433*8.617333262e-5,'pbc',0,'Ez',0,'verbose',0);
+param=main_3D('g',5.55,'N',[60,100,50],'ED',50*433*8.617333262e-5,'pbc',0,'Ez',0,'verbose',0);
 
 kindex=1:param.N(3);
 uz=(2*kindex-param.N(3)-1)/(2*param.N(3));
@@ -16,7 +16,7 @@ dlist=[];
 htotlist=[];
 for i=1:1000
     ave1=ave_3D(energyall,wfall,param);
-    d=reshape(ave1*param.g,param.N(1),param.N(2));
+    d=reshape(ave1*param.g,param.N(2),param.N(1));
     dlist(:,:,i)=d;
     htot=totalenergy_3D(energyall,wfall,ave1,param);
     htotlist=[htotlist,htot];

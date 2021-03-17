@@ -1,16 +1,21 @@
-function re=totalenergy_3D(energyall,wfall,ave,param)
+function re=totalenergy_3D_bilayer(energyall,wfall,ave,param)
 sz=param.sz;
 sy=param.sy;
 sx=param.sx;
 s0=param.s0;
 N=param.N;
-t=param.t;
-mu=param.mu;
+N_Al=param.N_Al;
+N_FM=param.N_FM;
+t_Al=param.t_Al;
+t_FM=param.t_FM;
+
+mu_Al=param.mu_Al;
+mu_FM=param.mu_FM;
 
 delta=param.g*ave;
 % Kinetic=2*sum(t)-mu+sum(param.muVar)/(N(1)*N(2));
 Kinetic=0;
-D=1/(N(1)*N(2))*sum(delta.^2)/param.g;
+D=1/(N_Al(1)*N_Al(2))*sum(delta.^2)/param.g;
 
 Bx=spdiags([ones(N(1),1),ones(N(1),1)],[-1,1],N(1),N(1));   %banded mat for Nx
 By=spdiags([ones(N(2),1),ones(N(2),1)],[-1,1],N(2),N(2));   %banded mat for Ny

@@ -1,4 +1,6 @@
-function k=estimate_k(kz,param)
+function k=estimate_k_bilayer(kz,param)
+% there is a problem here because the kx,ky is clearly not periodic
+% Needs to find a better lower bound
 kxindex=1:param.N(1);
 ux=(2*kxindex-param.N(1)-1)/(2*param.N(1));
 kxlist=ux*param.b(1);

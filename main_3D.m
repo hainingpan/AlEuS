@@ -1,4 +1,5 @@
 function param=main_3D(varargin)
+%For the single layer of Al
 p=inputParser;
 addParameter(p,'a',[1e-10*5.076e6,1e-10*5.076e6,1e-10*5.076e6]); % (eV^-1)
 addParameter(p,'m',1);  % m_e, where m_e=0.511MeV
