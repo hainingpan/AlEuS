@@ -35,16 +35,19 @@ end
 
 
 %Hopping between Al and FM
-Bx_int=sparse(N_FM(1),N_Al(1));
-Bx_int(end,1)=1;
-By_int=speye(N_FM(2)); %Assume N_FM(2)==N_Al(2)
-
-
-idx_FM=speye(N_FM(1)); 
-idx_FM(end,end)=0;
-
-intx_FM=sparse(N_FM(1),N_FM(1)); 
-intx_FM(end,end)=1;
+if N_FM(1)>0
+    Bx_int=sparse([N_FM(1)],[1],[1],N_FM(1),N_Al(1));
+    By_int=speye(N_FM(2)); %Assume N_FM(2)==N_Al(2)
+    idx_FM=speye(N_FM(1)); 
+    idx_FM(end,end)=0;
+    intx_FM=sparse(N_FM(1),N_FM(1)); 
+    intx_FM(end,end)=1;
+else
+    Bx_int=sparse(N_FM(1),N_Al(1));
+    By_int=speye(N_FM(2));
+    idx_FM=speye(N_FM(1)); 
+    intx_FM=sparse(N_FM(1),N_FM(1)); 
+end
 
 idx_Al=speye(N_Al(1));
 idx_Al(1,1)=0;
@@ -55,7 +58,7 @@ intx_Al(1,1)=1;
 K_int=-kron(Bx_int,By_int)*t_int(1);
 
 Dmat=param.g*spdiags(ave,0,N(1)*N(2),N(1)*N(2));
-zero=zeros(N(1)*N(2));
+% zero=zeros(N(1)*N(2));
 
 
 % D_bdg=[zero,zero,zero,-Dmat;
