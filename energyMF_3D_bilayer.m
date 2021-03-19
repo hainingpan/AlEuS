@@ -73,8 +73,9 @@ D_bdg=kron(sparse([1],[4],[1],4,4),-Dmat)...
      
 Z_bdg=kron(kron(sz,sz),spdiags([ones(N_FM(1)*N_FM(2),1);zeros(N_Al(1)*N_Al(2),1)],0,N(1)*N(2),N(1)*N(2)))*param.Ez;
 
-% kreq=arrayfun(@(x) estimate_k_bilayer(x,param),param.klist(1:end/2));
-kreq=100*ones(N(3)/2,1);
+kreq_est=arrayfun(@(x) estimate_k_bilayer(x,param),param.klist(1:end/2));
+kreq=max(kreq_est,50);
+
 
 knzlist=find(kreq);
 % knzlist=1:length(kreq);
