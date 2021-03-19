@@ -25,7 +25,7 @@ for i=1:1000
         end
     end
     
-    save(sprintf('Nk(%d,%d,%d)g%fED%f.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),'dlist','htotlist','param');
+    save(sprintf('Nk(%d,%d,%d)g%fED%f.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),'dlist','htotlist','param','energyall','wfall');
     [energyall,wfall]=energyMF_3D(ave1,wfall,param);
 end
 end

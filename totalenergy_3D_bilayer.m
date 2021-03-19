@@ -8,6 +8,7 @@ N_Al=param.N_Al;
 N_FM=param.N_FM;
 t_Al=param.t_Al;
 t_FM=param.t_FM;
+t_int=param.t_int;
 
 mu_Al=param.mu_Al;
 mu_FM=param.mu_FM;
@@ -75,22 +76,16 @@ for i=1:size(energyall,1)
         wf=squeeze(wfall{i});
         
         K_Al=-kron(Bx_Al,speye(N_Al(2)))*t_Al(1)-kron(speye(N_Al(1)),By_Al)*t_Al(2)...
-        +(2*t_Al(1)+2*t_Al(2)+param.energylist(kindex)-mu_Al)*kron(idx_Al,speye(N_Al(2)))...
-        +(t_Al(1)+t_int(1)+2*t_Al(2)+param.energylist(kindex)-mu_Al)*kron(intx_Al,speye(N_Al(2)))...
+        +(2*t_Al(1)+2*t_Al(2)+param.energylist(i)-mu_Al)*kron(idx_Al,speye(N_Al(2)))...
+        +(t_Al(1)+t_int(1)+2*t_Al(2)+param.energylist(i)-mu_Al)*kron(intx_Al,speye(N_Al(2)))...
         +spdiags(param.muVar,0,N_Al(1)*N_Al(2),N_Al(1)*N_Al(2));
     
         K_FM=-kron(Bx_FM,speye(N_FM(2)))*t_FM(1)-kron(speye(N_FM(1)),By_FM)*t_FM(2)...
-            +(2*t_FM(1)+2*t_FM(2)+param.energylist(kindex)-mu_FM)*kron(idx_FM,speye(N_FM(2)))...
-            +(t_FM(1)+t_int(1)+2*t_FM(2)+param.energylist(kindex)-mu_FM)*kron(intx_FM,speye(N_FM(2)));
-
-    
-    
-    
+            +(2*t_FM(1)+2*t_FM(2)+param.energylist(i)-mu_FM)*kron(idx_FM,speye(N_FM(2)))...
+            +(t_FM(1)+t_int(1)+2*t_FM(2)+param.energylist(i)-mu_FM)*kron(intx_FM,speye(N_FM(2)));   
+        
         K=[K_FM,K_int;K_int',K_Al];
-    
-       
-        H_bdg=K_bdg+D_bdg+Z_bdg;
-    
+              
         K_bdg=kron(sparse([1],[1],[1],4,4),K)+...
         kron(sparse([2],[2],[1],4,4),K)+...
         kron(sparse([3],[3],[1],4,4),-K)+...
