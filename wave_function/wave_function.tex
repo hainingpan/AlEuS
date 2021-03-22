@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage[left=2.5cm,top=2.5cm,right=2.5cm,nohead,nofoot]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{braket}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+\DeclareMathOperator\arcsinh{arcsinh}
+
+
+
+\newcommand{\su}{\uparrow} 
+\newcommand{\sd}{\downarrow} 
+\newcommand{\bpm}{\begin{pmatrix}}
+\newcommand{\epm}{\end{pmatrix}}
+
+
+\newcommand{\nn}{\nonumber \\} 
+\newcommand{\tp}{ ^{\intercal} }
+\newcommand{\dg}{^{\dagger}}
+\newcommand{\hc}{\rm{H.c.}}
+\newcommand{\half}{\frac{1}{2}}
+
+\newcommand{\trso}{\mathcal{T}}
+\newcommand{\phso}{\mathcal{P}}
+\newcommand{\cco}{\mathcal{K}}
+
+
+\newcommand{\bx}{\bold{x}}
+\newcommand{\by}{\bold{y}}
+\newcommand{\bz}{\bold{z}}
+\newcommand{\br}{\bold{r}}
+\newcommand{\bR}{\bold{R}}
+
+\newcommand{\bk}{\bold{k}}
+\newcommand{\bp}{\bold{p}}
+\newcommand{\bq}{\bold{q}}
+\newcommand{\bK}{\bold{K}}
+\newcommand{\bP}{\bold{P}}
+\newcommand{\bQ}{\bold{Q}}
+
+
+
+\begin{document}
+
+\title{Wave-function approach to understanding superconductor-ferromagnet bilayers}
+\author{Chun-Xiao Liu}
+\date{\today}
+\maketitle
+
+
+In this note, we use the wave-function approach to understand the magnetic proximity effect at the superconductor-ferromagnetic (SC-FM) interface. We consider a planar geometry of the bilayer, and try to solve the following eigen-equation:
+\begin{align}
+H \Psi(x,y,z) = \left[ -\frac{\hbar^2 (\partial^2_x + \partial^2_z )}{2m(y)} - \frac{\hbar^2}{2} \partial_y \left( \frac{1}{m(y)} \partial_y \right) + E_b(y) \right] \Psi(x,y,z) = E \Psi(x,y,z).
+\end{align}
+Here we ignore the superconductivity because the magnetic proximity effect at the SC-FM interface is well described by the N-FM interface. Also, we omit the spin degrees of freedom, because spin polarization is conserved in this problem and numerical simulations show that the spin-up and spin-down channels have an almost identical induced exchange coupling strength. The effective mass is a piecewise function with $m(y>0) = m_S$ and $m(y<0) = m_F$. $E_b(y)$ is the profile of the band bottom, with $E_b(y>0) = -E_F$ and $E_b(y<0)=E_{\text{gap}}$. Our focus is on the states near the Fermi level, i.e.,
+\begin{align}
+H \Psi(x,y,z) =0.
+\end{align}
+
+\section{Clean limit}
+We first consider the scenario for which the bilayer is in the clean limit. The system then has translational symmetry parallel to the interface, and thus the eigenfunction has the following ansatz
+\begin{align}
+\Psi(x,y,z) = \psi(y) e^{ik_x x +ik_z z }.
+\end{align}
+We are then solving a simplified eigen-equation
+\begin{align}
+\left[ - \frac{\hbar^2}{2} \partial_y \left( \frac{1}{m(y)} \partial_y \right) + \frac{\hbar^2 k^2_{\parallel}}{2m(y)} + E_b(y) \right] \psi(y) = 0,
+\end{align}
+with $k^2_{\parallel} = k^2_x + k^2_z$. In the normal metal part ($0 \leq y \leq D$), we have
+\begin{align}
+-\frac{\hbar^2}{2m_S}\partial^2_y \psi = \left( E_F - \frac{\hbar^2 k^2_{\parallel}}{2m_S} \right) \psi.
+\end{align}
+When $E_F - \frac{\hbar^2 k^2_{\parallel}}{2m_S} >0$, the wavefunction inside the normal metal is oscillatory, and has the following form
+\begin{align}
+\psi(y) = A \sin (k_y (y-D)),
+\end{align}
+where $k_y = \sqrt{ k^2_F - k^2_{\parallel} }$ with $k_F = \sqrt{2m_SE_F / \hbar^2}$, and $D$ is the thickness of the SC along $y$-axis.
+
+
+
+On the other hand, in the FM part, we have 
+\begin{align}
+\frac{\hbar^2}{2m_F}\partial^2_y \psi = \left( E_{\text{gap}} + \frac{\hbar^2 k^2_{\parallel}}{2m_F} \right) \psi.
+\end{align}
+A key observation here is that a finite kinetic energy parallel to the planar interface will shift the band edge upwards. For a normal metal, the effective Fermi energy for $y$-component decreases, whereas for the insulator, the effective gap becomes even larger, thus reducing the penetration length into the FM. Note that the shifts in N and FM are different due to the different effective masses. The wavefunction in FM is
+\begin{align}
+\psi(y) = B \left[ e^{y/\lambda} -  e^{-(y+2d)/\lambda}  \right],
+\end{align}
+which satisfies the boundary condition $\psi(-d) = 0$.
+Here the decay length is
+\begin{align}
+\lambda^{-1} = \sqrt{\lambda^{-2}_0 + k^2_{\parallel} }
+\end{align}
+with $\lambda^{-1}_0 =   \sqrt{2m_FE_{\text{gap}}} / \hbar$.
+
+
+
+Finally we need to match the wavefunction and its first-order derivative at the interface $y=0$. $\psi(y=0^+) = \psi(y=0^-)$ yields
+\begin{align}
+-A \sin (k_y D) =  B(1 - e^{-2d/\lambda}),
+\end{align}
+and $\psi'(y=0^+) / m_S = \psi'(y=0^-) / m_F$ yields
+\begin{align}
+\frac{A  k_y \cos (k_y D)}{m_S} = \frac{B(  1 + e^{-2d/\lambda} )}{\lambda m_F} .
+\end{align}
+So in the end we get the wavefunction
+\begin{align}
+\psi(y) = \left\{ 
+\begin{array}{ll}  A \sin (k_y(y-D))   & \text{for }  0 \leq y \leq D,\\
+  - \frac{A \sin (k_y D)}{1 - e^{-2d/\lambda}} \left( e^{y/\lambda} -  e^{-(y+2d)/\lambda} \right) & \text{for }  -d \leq y \leq 0. 
+\end{array}\right.
+\end{align}
+and a transcendental equation for allowed values of $k_y$: 
+\begin{align}
+-k_y \lambda \cdot \frac{m_F}{m_S} \cdot  \tanh (d/\lambda) = \tan (k_y D).
+\end{align}
+Note that the decay length $\lambda$ depends on $k_{\parallel}$ and we assume $k_y < k_F$. It is interesting to note that when $k_y \lambda \ll 1$, we would have $k_y \approx n \pi/D$. When $k_y \lambda >1$, $\tan (k_y D) \sim O(1)$. This has implications on the wavefunction analysis in induced exchange coupling.
+
+
+
+The spin-polarization of an eigenstate is proportional to its weight inside the FM. The weight in FM is
+\begin{align}
+w_{\text{FM}} &= \int^0_{-d} dy |\psi(y)|^2 \nn
+& = \frac{A^2 \sin^2 (k_y D)}{(1 - e^{-2d/\lambda})^2} \int^0_{-d} dy \left( e^{y/\lambda} -  e^{-(y+2d)/\lambda} \right)^2 \nn
+&=  \frac{A^2  }{2} \cdot \sin^2 (k_y D) \lambda \cdot F(d/\lambda),
+\end{align}
+with the dimensionless function $F(\xi)$ being
+\begin{align}
+F(\xi) =  \frac{ 1 - e^{-4\xi} - 4\xi e^{-2\xi} }{ ( 1 - e^{-2\xi} )^2 }.
+\end{align}
+$F(\xi)$ is always less than 1, and has the asymptotic behavior of $F(\xi \to + \infty) \to 1$.
+
+ The weight in the normal metal is
+\begin{align}
+w_{\text{SC}} &= \int^D_{0} dy |\psi(y)|^2 \nn
+&= \int^D_{0} dy A^2 \sin^2 (k_y (y-D)) \nn
+&=A^2 \int^D_{0} dy \frac{1 - \cos( 2k_y (y-D) )}{2} \nn
+&= \frac{A^2}{2} \left( D - \frac{\sin (2k_y D)}{2k_y}  \right).
+\end{align}
+Therefore, the spin-polarization of an eigenstate is approximately
+\begin{align}
+\langle h \rangle & \approx h \cdot \frac{w_{\text{FM}}}{ w_{\text{FM}} + w_{\text{SC}}} \nn
+&= h \frac{ \sin^2 (k_y D) \lambda F(d/\lambda) }{  \sin^2 (k_y D) \lambda F(d/\lambda) +  \left( D - \frac{\sin (2k_y D)}{2k_y}  \right)} \nn
+&\approx  \sin^2 (k_y D) \cdot F(d/\lambda) \cdot \frac{h\lambda }{ D},
+\end{align}
+where in the last line, we assume that $  \sin^2 (k_y D) \lambda F(d/\lambda)  \ll D$, and $\frac{\sin (2k_y D)}{2k_y} < \frac{D}{2\pi} \sin (2k_y D) \ll D$. The prefactor $\sin^2 (k_y D)$ is state-specific. Note that here the spin-polarization is proportional to the penetration length $\lambda$, which is a function of the bare insulating gap size and the parallel momentum $\lambda = \lambda(E_{\text{gap}}, k_{\parallel})$.
+In the normal metal, since 
+\begin{align}
+E_F = \hbar^2(k^2_y + k^2_{\parallel} )/2m_S,
+\end{align}
+that is, a larger $k_y$ indicates a smaller kinetic energy parallel to the interface, thus keeping the effective insulating gap in FM to be minimum. Put in another way, in the clean limit, an eigenstate with large momentum/velocity perpendicular to the interface will penetrate deeper into the FM, thus has a larger induced exchange field.
+
+
+
+\section{Dirty limit}
+In realistic devices, there can be disorder potential inside the SC layer. In the presence of strong and short-ranged disorder potentials, the disordered energy eigenstate would be a superposition of plane-waves of different values of momenta. In the first scenario, we consider a model of disorder used in the numerical simulations, i.e., $V(x,y)$ only inside the cross section while the system still has translational symmetry along $z$-axis. The physical variable on which we intend to perform the disorder-averaging is the penetration length
+\begin{align}
+\lambda(E_{\text{gap}}, k_x, k_z) = \frac{1}{\sqrt{\lambda^{-2}_0 + k^2_x + k^2_z }}
+\end{align}
+which is a function of momenta $k_x$ and $k_z$. For small-$k_z$ states, we approximate $k_z \approx 0$, and thus the averaged decay length is
+\begin{align}
+\lambda' &= \frac{1}{\int^{k_F}_0 dk_x} \int^{k_F}_0 dk_x \frac{1}{\sqrt{\lambda^{-2}_0 + k^2_x  }} \nn
+&=\frac{1}{k_F} \int^{\lambda_0 k_F}_0 d \xi \frac{1}{\sqrt{1 + \xi^2  }} \nn
+&= \frac{ \arcsinh (\lambda_0 k_F)}{k_F}.
+\end{align}
+If we take $\lambda_0 = 0.5~$nm and $k_F = 20~\rm{nm}^{-1}$, then $\lambda_0k_F=10$, and we find that $\lambda' \approx 3/k_F \approx 0.15~$nm $< \lambda_0$. In the most generic case of $V(x,y,z)$, no translational symmetry is present, and we need to perform a disorder-averaging along both $k_x$ and $k_z$ directions. We have
+\begin{align}
+\lambda'' &= \frac{1}{\int^{k_F}_0 dk_{\parallel} 2\pi k_{\parallel} }  \int^{k_F}_0  \frac{dk_{\parallel} 2\pi k_{\parallel}}{\sqrt{\lambda^{-2}_0 + k^2_{\parallel}  }} \nn
+&= \frac{1}{k^2_F} \int^{k_F}_0 \frac{dk^2}{ \sqrt{\lambda^{-2}_0 + k^2 }} \nn
+&=\frac{1}{ \lambda_0 k^2_F} \int^{\lambda^2_0 k^2_F}_0 \frac{d\xi}{ \sqrt{1 + \xi }} \nn
+&= 2 \frac{ \sqrt{\lambda^2_0 k^2_F+1 } -1 }{\lambda_0 k^2_F}.
+\end{align}
+For $\lambda_0 k_F = 10$, we have $\lambda'' \approx 2/k_F = 0.1~$nm. In addition, after disorder-averaging, we can approximate the prefactor as
+\begin{align}
+\sin^2 (k_y D) \approx \frac{1}{2}.
+\end{align}
+So the averaged spin-polarization expectation in the thick FM limit is
+\begin{align}
+\langle h \rangle \approx   \frac{h \lambda'}{2D}.
+\end{align}
+
+
+
+
+
+
+\end{document}
