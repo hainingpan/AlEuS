@@ -1,5 +1,5 @@
-function run_bilayer(N_FM_x)
-param=main_3D_bilayer('N_Al',[60,100,50],'N_FM',[N_FM_x,100,50],'g',5.55,'ED',50*433*8.617333262e-5);
+function run_bilayer(N_FM_x,Nkz)
+param=main_3D_bilayer('N_Al',[60,100,Nkz],'N_FM',[N_FM_x,100,Nkz],'g',5.55,'ED',50*433*8.617333262e-5);
 
 kindex=1:param.N(3);
 uz=(2*kindex-param.N(3)-1)/(2*param.N(3));
