@@ -4,7 +4,7 @@ param=main_3D_bilayer('N_Al',[60,100,Nkz],'N_FM',[N_FM_x,100,Nkz],'g',5.55,'ED',
 kindex=1:param.N(3);
 uz=(2*kindex-param.N(3)-1)/(2*param.N(3));
 param.klist=uz*param.b(3); 
-param.energylist=epsilon_3D_bilayer(param.klist,param);
+[param.energylist_Al,param.energylist_FM]=epsilon_3D_bilayer(param.klist,param);
 
 ave0=3.5e-4/param.g*[zeros(param.N_FM(1)*param.N_FM(2),1);ones(param.N_Al(1)*param.N_Al(2),1)];
 
