@@ -1,5 +1,5 @@
 function run_bilayer(N_FM_x,Nkz)
-param=main_3D_bilayer('N_Al',[60,100,Nkz],'N_FM',[N_FM_x,100,Nkz],'g',5.55,'ED',50*433*8.617333262e-5);
+param=main_3D_bilayer('N_Al',[60,100,Nkz],'N_FM',[N_FM_x,100,Nkz],'g',5.55,'ED',1*433*8.617333262e-5);
 
 kindex=1:param.N(3);
 uz=(2*kindex-param.N(3)-1)/(2*param.N(3));
@@ -36,7 +36,7 @@ for i=1:1000
             break
         end
     end
-    save(sprintf('Nk(%d,%d,%d)g%fED%f.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),'dlist','htotlist','param','energyall','wfall');
+    save(sprintf('Nk(%d,%d,%d)g%.2fED%.1f.mat',param.N,param.g,param.ED/(433*8.617333262e-5)),'dlist','htotlist','param','energyall','wfall');
     [energyall,wfall]=energyMF_3D_bilayer(ave1,wfall,param);
 end
 end
