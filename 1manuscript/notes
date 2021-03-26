@@ -1,0 +1,10 @@
+1. Minor mistake pointed out in the draft
+2. Fig. 1 should the gap be noted also? Recommend label the system size.
+3. the k_z in the unit of (kz*a)?
+4. Fig 4 two label not overlay on the plot, colorbar
+//
+5. Fig 4 and etc, need to emphasize ground state?
+6. How this is obtained "In a clean S, eigenstates with large (small) momenta normal to the interface have a strong (weak) induced exchange coupling.", since you didn't compare kz here?
+7. A smaller system size of (6nm *10 nm *?? nm)+(2nm* 10 nm *?? nm) calculate Fig. 5 to see the discrenpency
+
+([10,2]nm*50nm*inf)
