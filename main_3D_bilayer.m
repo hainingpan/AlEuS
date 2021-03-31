@@ -35,7 +35,8 @@ param.t_FM=1./(2*param.m_FM*param.a.^2);
 param.t_int=1./(2*sqrt(param.m_Al*param.m_FM)*param.a.^2);
 param.N=param.N_Al;
 param.N(1)=param.N_Al(1)+param.N_FM(1);
-param.muVar=param.var*randn(param.N_Al(1)*param.N_Al(2),1);
+% param.muVar=param.var*randn(param.N_Al(1)*param.N_Al(2),1);
+param.muVar=param.var*(2*rand(param.N_Al(1)*param.N_Al(2),1)-1);
 
 
 
