@@ -233,17 +233,27 @@ class Params:
         self.Delta_array=self.g*ave
         self.update_Delta()
 
+    def save(self):
+        save_dict=self.__dict__
+        del save_dict['system']
+        with open("Lz{:.2f}g{:.2f}ED{:.2f}.pickle".format(self.L_Al[2],self.g,self.E_D/(433*8.617333262e-5)),"wb") as f:
+            pickle.dump(save_dict,f)
+
 def run():
     params=Params(L_Al=np.array([10,10,10])/2,L_FM=np.array([2,10,10])/2,U_D=0)
-    Delta_mean_list=[params.Delta_mean]
+    params.Delta_mean_list=[params.Delta_mean]
     params.energyMF()
     for i in range(1000):
         params.ave()
         print('-'*10+'Iteration: {}, Average Delta: {:e} eV'.format(i,params.Delta_mean)+'-'*10)
-        Delta_mean_list.append(params.Delta_mean)
-        if np.abs(Delta_mean_list[-1]-Delta_mean_list[-2])<1e-8:
+        params.Delta_mean_list.append(params.Delta_mean)
+        if np.abs(params.Delta_mean_list[-1]-params.Delta_mean_list[-2])<1e-8:
             break
         params.energyMF()
+
+    params.save()
+    return params
+
 
     
 # def sparse_diag(matrix, k, sigma, **kwargs):
