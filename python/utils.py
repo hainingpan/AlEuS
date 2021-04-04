@@ -8,6 +8,7 @@ import warnings
 
 import kwant.linalg.mumps as mumps
 from scipy.sparse import identity
+import pickle
 
 
 class Params:
