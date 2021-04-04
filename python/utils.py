@@ -240,7 +240,7 @@ class Params:
             pickle.dump(save_dict,f)
 
 def run():
-    params=Params(L_Al=np.array([10,10,10])/2,L_FM=np.array([2,10,10])/2,U_D=0)
+    params=Params(L_Al=np.array([10,10,10]),L_FM=np.array([2,10,10]),U_D=0,Delta_0=4.8e-4)
     params.Delta_mean_list=[params.Delta_mean]
     params.energyMF()
     for i in range(1000):
@@ -250,8 +250,8 @@ def run():
         if np.abs(params.Delta_mean_list[-1]-params.Delta_mean_list[-2])<1e-8:
             break
         params.energyMF()
-
-    params.save()
+        params.save()
+    
     return params
 
 
