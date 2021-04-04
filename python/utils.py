@@ -235,9 +235,9 @@ class Params:
         self.update_Delta()
 
     def save(self):
-        save_dict=self.__dict__
+        save_dict=self.__dict__.copy()
         del save_dict['system']
-        with open("Lz{:.2f}g{:.2f}ED{:.2f}.pickle".format(self.L_Al[2],self.g,self.E_D/(433*8.617333262e-5)),"wb") as f:
+        with open("Lz{:.3f}g{:.2f}ED{:.2f}.pickle".format(self.L_Al[2],self.g,self.E_D/(433*8.617333262e-5)),"wb") as f:
             pickle.dump(save_dict,f)
 
 def run():
@@ -249,9 +249,11 @@ def run():
         print('-'*10+'Iteration: {}, Average Delta: {:e} eV'.format(i,params.Delta_mean)+'-'*10)
         params.Delta_mean_list.append(params.Delta_mean)
         if np.abs(params.Delta_mean_list[-1]-params.Delta_mean_list[-2])<1e-8:
+            params.save()
             break
         params.energyMF()
         params.save()
+        
     
     return params
 
