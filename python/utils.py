@@ -11,6 +11,8 @@ from scipy.sparse import identity
 import pickle
 from mpi4py.futures import MPIPoolExecutor
 
+import argparse
+
 
 class Params:
     '''
@@ -314,7 +316,12 @@ def run():
     return params
 
 def run_pool():
-    params=Params(L_Al=np.array([10,10,10]),L_FM=np.array([2,10,10]),U_D=0,Delta_0=4.8e-4)
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--Nz',default=10)
+    args=parser.parse_args()
+
+
+    params=Params(L_Al=np.array([10,10,float(args.Nz)]),L_FM=np.array([2,10,float(args.Nz)]),U_D=0,Delta_0=4.8e-4)
     params.Delta_mean_list=[params.Delta_mean]
     params.energyMF_pool()
     for i in range(1000):
