@@ -270,7 +270,7 @@ class Params:
     def save(self):
         save_dict=self.__dict__.copy()
         del save_dict['system']
-        with open("Lz{:.3f}g{:.2f}ED{:.2f}.pickle".format(self.L_Al[2],self.g,self.E_D/(433*8.617333262e-5)),"wb") as f:
+        with open("Lz{:.3f}g{:.2f}ED{:.2f}.pickle".format(self.L_Al[2]/5.076e-3,self.g,self.E_D/(433*8.617333262e-5)),"wb") as f:
             pickle.dump(save_dict,f)
 def test2(i,j):
     print(i,j)
