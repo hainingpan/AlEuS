@@ -239,6 +239,8 @@ class Params:
             H_bdg=csc_matrix(np.real((H_bdg+H_bdg.T.conj())/2))
             H_bdg_all.append(H_bdg)
 
+        print('Elapsed time on constructing Hamiltonian is: {:.1f}s'.format(time.time()-start_time))
+
         executor=MPIPoolExecutor()
         pool_results=executor.map(diagonalization,[(i,self.E_D,j,k) for i,j,k in zip(H_bdg_all,k_req_max,range(len(k_req_max)))])
         executor.shutdown()
