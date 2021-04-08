@@ -303,7 +303,7 @@ def diagonalization(input_wrapper):
         return val,vec
 
 def run():
-    params=Params(L_Al=np.array([10,10,10]),L_FM=np.array([2,10,10]),U_D=0,Delta_0=4.8e-4)
+    params=Params(L_Al=np.array([10,10,10]),L_FM=np.array([2,10,10]),U_D=0,Delta_0=1e-4)
     params.Delta_mean_list=[params.Delta_mean]
     params.energyMF()
     for i in range(1000):
@@ -323,7 +323,7 @@ def run_pool():
     args=parser.parse_args()
 
 
-    params=Params(L_Al=np.array([10,10,float(args.Nz)]),L_FM=np.array([2,10,float(args.Nz)]),U_D=0,Delta_0=4.8e-4)
+    params=Params(L_Al=np.array([10,10,float(args.Nz)]),L_FM=np.array([2,10,float(args.Nz)]),U_D=0,Delta_0=1e-4)
     params.Delta_mean_list=[params.Delta_mean]
     params.energyMF_pool()
     for i in range(1000):
