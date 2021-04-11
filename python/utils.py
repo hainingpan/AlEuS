@@ -232,12 +232,15 @@ class Params:
         # self.wfall=self.energyall  
         H_bdg_all=[]  
         self.make_system()
+        self.k_req_max=k_req_max
         for kz_index,k_req in enumerate(k_req_max):
             k_req=k_req_max[kz_index]
             k_req=np.max([40,2*(1.1*k_req//2).astype(int)])
             H_bdg=self.system.hamiltonian_submatrix(params=dict(kz_index=kz_index),sparse=True)
             H_bdg=csc_matrix(np.real((H_bdg+H_bdg.T.conj())/2))
             H_bdg_all.append(H_bdg)
+        
+        self.H_bdg_all=H_bdg_all
 
         print('Elapsed time on constructing Hamiltonian is: {:.1f}s'.format(time.time()-start_time))
 
@@ -255,6 +258,7 @@ class Params:
             self.energyall_history.append(self.energyall)
             self.wfall_history.append(self.wfall)
         print('Elapsed time is: {:.1f}s'.format(time.time()-start_time))
+
 
     def ave(self):
         self.Fermi_dist()
@@ -274,9 +278,21 @@ class Params:
         del save_dict['system']
         with open("Lz{:.3f}g{:.2f}ED{:.2f}.pickle".format(self.L_Al[2]/5.076e-3,self.g,self.E_D/(433*8.617333262e-5)),"wb") as f:
             pickle.dump(save_dict,f)
-def test2(i,j):
-    print(i,j)
-    return i**2
+    
+    def total_energy(self):
+        aveHbdg=0
+        for kz_index,k_req in enumerate(self.k_req_max):
+            H_bdg=self.H_bdg_all[kz_index]
+            
+            for j in range(len(self.energyall[kz_index])):
+                aveHbdg+=(self.wfall[kz_index][:,j].conj().T@H_bdg@self.wfall[kz_index][:,j]*self.F_D[kz_index][j])
+
+        aveHbdg=aveHbdg/(2*(H_bdg.shape[0]/4)*(len(self.k_req_max)))
+        Kinetic=0
+        D=np.sum(self.Delta_array**2)/self.g/(self.N_Al[0]*self.N_Al[1])
+        self.tot=aveHbdg+Kinetic+D
+        return self.tot
+
 
 def diagonalization(input_wrapper):
         H_bdg,E_D,k_req,kz_index=input_wrapper
@@ -321,14 +337,16 @@ def run_pool():
     parser=argparse.ArgumentParser()
     parser.add_argument('--Nz',default=10)
     args=parser.parse_args()
-
+    
 
     params=Params(L_Al=np.array([10,10,float(args.Nz)]),L_FM=np.array([2,10,float(args.Nz)]),U_D=0,Delta_0=1e-4)
     params.Delta_mean_list=[params.Delta_mean]
+    params.total_energy_history=[]
     params.energyMF_pool()
     for i in range(1000):
         params.ave()
-        print('-'*10+'Iteration: {}, Average Delta: {:e} eV'.format(i,params.Delta_mean)+'-'*10)
+        params.total_energy_history.append(params.total_energy())
+        print('-'*10+'Iteration: {}, Average Delta: {:e} eV, Total Energy: {:e} eV'.format(i,params.Delta_mean,params.tot)+'-'*10)
         params.Delta_mean_list.append(params.Delta_mean)
         if np.abs(params.Delta_mean_list[-1]-params.Delta_mean_list[-2])<1e-8:
             params.save()
