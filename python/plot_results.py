@@ -5,6 +5,7 @@ import numpy as np
 from scipy.io import loadmat
 from scipy.interpolate import interp1d
 import pickle
+import argparse
 
 
 def show_plot_pickle(data,export=False):
@@ -24,9 +25,12 @@ def show_plot_pickle(data,export=False):
 
 
 if __name__=="__main__":
-    i='Lz70.000g5.60ED1.00.pickle'
+    # i='Lz35.000g5.60ED1.00.pickle'
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--fn')
+    args=parser.parse_args()
+    i=args.fn
+
     with open('{}'.format(i),'rb') as f:
         z=pickle.load(f)
-    data_fn.append(z)
-    dim_list.append(z['N_Al'])
-    delta_list.append(show_plot_pickle(z,True))
+    (show_plot_pickle(z,True))
