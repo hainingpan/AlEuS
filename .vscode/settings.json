@@ -1,4 +1,7 @@
 {
     "python.pythonPath": "/home/jake/anaconda3/bin/python",
-    "jupyter.jupyterServerType": "local"
+    "jupyter.jupyterServerType": "local",
+    "intelOneAPI.analysis.binary-path": "/mnt/d/cmtc/AlEuS/python/utils.py",
+    "intelOneAPI.analysis.vtune.install-root": "/opt/intel/oneapi/vtune/latest",
+    "intelOneAPI.analysis.vtune.project-folder": "/mnt/d/cmtc/AlEuS/vtune"
 }

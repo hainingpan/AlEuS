@@ -273,10 +273,10 @@ class Params:
         self.Delta_array=self.g*ave
         self.update_Delta()
 
-    def save(self):
+    def save(self,posix):
         save_dict=self.__dict__.copy()
         del save_dict['system']
-        with open("Lz{:.3f}g{:.2f}ED{:.2f}.pickle".format(self.L_Al[2]/5.076e-3,self.g,self.E_D/(433*8.617333262e-5)),"wb") as f:
+        with open("Lz{:.2f}g{:.2f}ED{:.1f}_{}.pickle".format(self.L_Al[2]/5.076e-3,self.g,self.E_D/(433*8.617333262e-5),posix),"wb") as f:
             pickle.dump(save_dict,f)
     
     def total_energy(self):
@@ -335,11 +335,12 @@ def run():
 
 def run_pool():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--Nz',default=10)
+    parser.add_argument('--Lz',default=10,type=float)
+    parser.add_argument('--h_exc',default=0,type=float)
     args=parser.parse_args()
     
 
-    params=Params(L_Al=np.array([10,10,float(args.Nz)]),L_FM=np.array([2,10,float(args.Nz)]),U_D=0,Delta_0=1e-4)
+    params=Params(L_Al=np.array([10,10,(args.Lz)]),L_FM=np.array([2,10,(args.Lz)]),U_D=0,Delta_0=1e-4,h_exc=args.h_exc)
     params.Delta_mean_list=[params.Delta_mean]
     params.total_energy_history=[]
     params.energyMF_pool()
@@ -349,10 +350,32 @@ def run_pool():
         print('-'*10+'Iteration: {}, Average Delta: {:e} eV, Total Energy: {:e} eV'.format(i,params.Delta_mean,params.tot)+'-'*10)
         params.Delta_mean_list.append(params.Delta_mean)
         if np.abs(params.Delta_mean_list[-1]-params.Delta_mean_list[-2])<1e-8:
-            params.save()
+            params.save('SC')
             break
         params.energyMF_pool()
-        params.save()      
+        
+    return params
+
+def run_pool_metal():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--Lz',default=10,type=float)
+    parser.add_argument('--h_exc',default=0,type=float)
+    args=parser.parse_args()
+    
+
+    params=Params(L_Al=np.array([10,10,(args.Lz)]),L_FM=np.array([2,10,(args.Lz)]),U_D=0,Delta_0=0e-4,h_exc=args.h_exc)
+    params.Delta_mean_list=[params.Delta_mean]
+    params.total_energy_history=[]
+    params.energyMF_pool()
+    for i in range(1000):
+        params.ave()
+        params.total_energy_history.append(params.total_energy())
+        print('-'*10+'Iteration: {}, Average Delta: {:e} eV, Total Energy: {:e} eV'.format(i,params.Delta_mean,params.tot)+'-'*10)
+        params.Delta_mean_list.append(params.Delta_mean)
+        if np.abs(params.Delta_mean_list[-1]-params.Delta_mean_list[-2])<1e-8:
+            params.save('M')
+            break
+        params.energyMF_pool()         
     return params
     
 # def sparse_diag(matrix, k, sigma, **kwargs):
@@ -376,3 +399,4 @@ def run_pool():
 
 if __name__=="__main__":
     run_pool()
+    run_pool_metal()
