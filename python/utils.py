@@ -276,7 +276,7 @@ class Params:
     def save(self,posix):
         save_dict=self.__dict__.copy()
         del save_dict['system']
-        with open("Lz{:.2f}g{:.2f}ED{:.1f}_{}.pickle".format(self.L_Al[2]/5.076e-3,self.g,self.E_D/(433*8.617333262e-5),posix),"wb") as f:
+        with open("Lz{:.2f}g{:.2f}ED{:.1f}h{:e}_{}.pickle".format(self.L_Al[2]/5.076e-3,self.g,self.E_D/(433*8.617333262e-5),self.h_exc,posix),"wb") as f:
             pickle.dump(save_dict,f)
     
     def total_energy(self):
@@ -333,14 +333,11 @@ def run():
         params.save()      
     return params
 
-def run_pool():
-    parser=argparse.ArgumentParser()
-    parser.add_argument('--Lz',default=10,type=float)
-    parser.add_argument('--h_exc',default=0,type=float)
-    args=parser.parse_args()
-    
-
-    params=Params(L_Al=np.array([10,10,(args.Lz)]),L_FM=np.array([2,10,(args.Lz)]),U_D=0,Delta_0=1e-4,h_exc=args.h_exc)
+def run_pool(args):
+    params=Params(L_Al=np.array([args.Lx_Al,args.Ly,(args.Lz)]),
+    L_FM=np.array([args.Lx_FM,args.Ly,(args.Lz)]),U_D=0,Delta_0=1e-4,h_exc=args.h_exc)
+    # print(params.N_Al)
+    # print(params.N_FM)
     params.Delta_mean_list=[params.Delta_mean]
     params.total_energy_history=[]
     params.energyMF_pool()
@@ -356,14 +353,9 @@ def run_pool():
         
     return params
 
-def run_pool_metal():
-    parser=argparse.ArgumentParser()
-    parser.add_argument('--Lz',default=10,type=float)
-    parser.add_argument('--h_exc',default=0,type=float)
-    args=parser.parse_args()
-    
-
-    params=Params(L_Al=np.array([10,10,(args.Lz)]),L_FM=np.array([2,10,(args.Lz)]),U_D=0,Delta_0=0e-4,h_exc=args.h_exc)
+def run_pool_metal(args): 
+    params=Params(L_Al=np.array([args.Lx_Al,args.Ly,(args.Lz)]),
+    L_FM=np.array([args.Lx_FM,args.Ly,(args.Lz)]),U_D=0,Delta_0=0e-4,h_exc=args.h_exc)    
     params.Delta_mean_list=[params.Delta_mean]
     params.total_energy_history=[]
     params.energyMF_pool()
@@ -398,5 +390,13 @@ def run_pool_metal():
 #     return sla.eigsh(matrix, k, sigma=sigma, OPinv=opinv, **kwargs)
 
 if __name__=="__main__":
-    run_pool()
-    run_pool_metal()
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--Lz',default=10,type=float)
+    parser.add_argument('--h_exc',default=0,type=float)
+    parser.add_argument('--Lx_Al',default=10,type=float)
+    parser.add_argument('--Lx_FM',default=2,type=float)
+    parser.add_argument('--Ly',default=10,type=float)
+    args=parser.parse_args()
+
+    run_pool(args)
+    run_pool_metal(args)
